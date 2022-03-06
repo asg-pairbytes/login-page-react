@@ -1,10 +1,12 @@
-import Navbar from './Component/Navbar';
-import Home from './Component/Home';
-import SignUp from './Component/SignUp';
-import Login from './Component/Login';
+import Navbar from './Component/Navbar/Navbar';
+import Home from './Component/Home/Home';
+import SignUp from './Component/Signup/SignUp';
+import Login from './Component/Login/Login';
+import CreateProject from './Component/Projects/CreateProject';
 import './App.css';
 import {useEffect, useState} from 'react'
-
+import AddUser from './Component/Projects/AddUser';
+import ViewProject from './Component/Projects/ViewProject';
 import {
   BrowserRouter as Router,
   Route,
@@ -22,8 +24,8 @@ function App() {
     <div className="App">
       <Router>
     <Navbar login={login} setlogin={setLogin}/>
-    <Switch>
     <div style={{margin: "80px 10px"}}>
+    <Switch>
       <Route exact path="/">
         <Home />
       </Route>
@@ -33,8 +35,17 @@ function App() {
       <Route exact path="/login" loginStatus={setLogin}>
         <Login loginStatus={setLogin}/>
       </Route>
-    </div>
+      <Route exact path="/create-project">
+        <CreateProject />
+      </Route>
+      <Route exact path="/view-project">
+        <ViewProject />
+      </Route>
+      <Route exact path="/add-user">
+        <AddUser />
+      </Route>
     </Switch>
+    </div>
     </Router>
     </div>
   );

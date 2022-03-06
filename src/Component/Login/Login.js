@@ -1,8 +1,8 @@
-import SignUpAvatar from "./SignUpAvatar";
+import SignUpAvatar from "../Signup/SignUpAvatar";
 import { TextField,makeStyles,Button,Grid,Box } from "@material-ui/core";
 import { useState } from "react";
 import axios from "axios";
-import {Redirect, useHistory} from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 
 const useStyle = makeStyles({
   box:{
@@ -23,7 +23,7 @@ const Login = (props) => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    // setPending(true)
+    setPending(true)
     setEmailError(false)
     setPasswordError(false)
     if(email==='')
@@ -49,11 +49,13 @@ const Login = (props) => {
         localStorage.setItem('login',true);
         localStorage.setItem('token',item.data.token);
         props.loginStatus(true)
+        setPending(false)
       }).catch((error)=>{
         console.log(error.response.status);
         if(error.response.status===401)
         {
           alert("Invalid Credential")
+          setPending(false)
         }
         else{
           alert("Error Occurred, Please try again after some time")

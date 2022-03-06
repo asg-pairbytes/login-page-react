@@ -1,15 +1,14 @@
 import React from 'react';
-import {useEffect,useState} from 'react'
 import { Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-// import Link from '@material-ui/core/Link';
 import {Link,useHistory} from 'react-router-dom'
-import styles from "../Stylesheet/navbar.module.css"
+import styles from "../../Stylesheet/navbar.module.css"
 import axios from 'axios';
+import Dropdown from './Dropdown';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,6 +51,8 @@ const Navbar = (props) => {
           {
             props.login?
             <>
+              <Dropdown />
+              <span style={{marginRight: "20px"}}></span>
             <Avatar>
             </Avatar>
               <Button color="inherit" onClick={()=>{logout()}}>Log Out</Button>
