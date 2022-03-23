@@ -34,7 +34,7 @@ const Navbar = (props) => {
       localStorage.removeItem('login')
       history.push("/")
     }).catch((err)=>{
-      console.log("Error occured, Please try again")
+      alert("Error occured, Please try again")
     })
   }
   console.log(props.login)

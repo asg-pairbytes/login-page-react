@@ -13,15 +13,15 @@ const useStyle = makeStyles({
   const CreateProject = () =>{
     const history=useHistory();
     const classes = useStyle();
+    const [projectName,setProjectName] = useState("")
+    const [sourceLanguage,setSourceLanguage] = useState("")
+    const [targetLanguage,setTargetLanguage] = useState("")
     const [projectNameError,setProjectNameError] = useState(false)
     const [sourceError,setSourceError] = useState(false)
     const [targetError,setTargetError] = useState(false)
     const [pending,setPending] = useState(false)
     const handleSubmit = (e) =>{
       e.preventDefault();
-      let projectName = document.querySelector("#projectName").value
-      let source = document.querySelector("#sourceLanguageCode").value
-      let target = document.querySelector("#targetLanguageCode").value
       setProjectNameError(false)
       setSourceError(false)
       setTargetError(false)
@@ -29,10 +29,10 @@ const useStyle = makeStyles({
       if(projectName==="")
       {
         setProjectNameError(true)
-      }else if(source==="")
+      }else if(sourceLanguage==="")
       {
         setSourceError(true)
-      }else if(target==="")
+      }else if(targetLanguage==="")
       {
         setTargetError(true)
       }else{
@@ -40,8 +40,8 @@ const useStyle = makeStyles({
         const token = localStorage.getItem('token');
         axios.post("https://api.vachanengine.org/v2/autographa/projects",{
           "projectName": projectName,
-          "sourceLanguageCode": source,
-          "targetLanguageCode": target
+          "sourceLanguageCode": sourceLanguage,
+          "targetLanguageCode": targetLanguage
         },{
           headers:{
             "content-type": "application/json",
@@ -57,8 +57,7 @@ const useStyle = makeStyles({
           {
             alert("Permission Denied")
             setPending(false)
-          history.push("/")
-
+            history.push("/")
           }else if(error.response.status===422){
             alert("Invalid Language id")
             setPending(false)
@@ -66,6 +65,8 @@ const useStyle = makeStyles({
             alert("Test already exist")
             setPending(false)
           }else{
+            // console.log(error)
+            setPending(false)
             alert("Error Caused, Please try again")
           }
         })
@@ -86,7 +87,7 @@ const useStyle = makeStyles({
               label="Project Name"
               id="projectName"
               variant="filled"
-            //   onChange={(e)=>{setFirstName(e.target.value)}}
+              onChange={(e)=>{setProjectName(e.target.value)}}
               error={projectNameError}
             />
           </Grid>
@@ -98,7 +99,7 @@ const useStyle = makeStyles({
               label="Source Language Code"
               name="sourceLanguageCode"
               variant="filled"
-            //   onChange={(e)=>{setLastName(e.target.value)}}
+              onChange={(e)=>{setSourceLanguage(e.target.value)}}
               error={sourceError}
             />
           </Grid>
@@ -110,7 +111,7 @@ const useStyle = makeStyles({
               label="Target Language Code"
               name="targetLanguageCode"
               variant="filled"
-            //   onChange={(e)=>{setEmail(e.target.value)}}
+              onChange={(e)=>{setTargetLanguage(e.target.value)}}
               error={targetError}
             />
           </Grid>

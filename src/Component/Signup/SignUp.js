@@ -62,14 +62,12 @@ const SignUp = (props) => {
           'content-type': 'application/json'
         }
       }).then((item)=>{
-        console.log(item);
         alert("Login Succesful")
         localStorage.setItem('login',true);
         localStorage.setItem('token',item.data.token);
         props.loginStatus(true)
         history.push("/")
       }).catch((error)=>{
-        console.log(error.response.status);
         if(error.response.status===400)
         {
           alert("You're Already Registered. Click to go on Login Page")
